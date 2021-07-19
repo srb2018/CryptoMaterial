@@ -1,25 +1,40 @@
-# CA [Certificate Authority]
+# ISTC Application
 
-## In Hyperledger Fabric let we create the certificate in two ways
+<!-- ## In Hyperledger Fabric let we create the certificate in two ways
 
 - Cryptogen
 - Fabric-CA
 
 ### Cryptogen
 
-    cd configurations
+    cd ca-configurations
     ./createCryptogenCerts.sh
 
 Following Shell scripit will created the certificate for network component and network user by using cryptogen
 
 ### Fabric-CA
 
-    cd configurations
+    cd ca-configurations
     ./createFabricCACerts.sh up
 
  `To Down the Network`
 
-    cd configurations
+    cd ca-configurations
     ./createFabricCACerts.sh down
 
-Following Shell scripit will created the certificate for network component and network user by using Fabric-CA server and Fabric-CA Client
+Following Shell scripit will created the certificate for network component and network user by using Fabric-CA server and Fabric-CA Client -->
+
+## Create the Network and Channel
+
+    cd network
+    ./networkUp.sh
+
+## Deploy the chaincode
+
+    cd network
+    ./deployCC.sh
+
+ `Down the Network and Channel`
+
+    cd network
+    ./networkDown.sh
