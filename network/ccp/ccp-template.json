@@ -1,0 +1,49 @@
+{
+    "name": "istc-network-org${ORG}",
+    "version": "1.0.0",
+    "client": { 
+        "organization": "ISTCOrg${ORG}",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "ISTCOrg${ORG}": {
+            "mspid": "ISTCOrg${ORG}MSP",
+            "peers": [
+                "peer0.istcorg${ORG}.istc.com"
+            ],
+            "certificateAuthorities": [
+                "ca.istcorg${ORG}.istc.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.istcorg${ORG}.istc.com": {
+            "url": "grpcs://localhost:${P0PORT}",
+            "tlsCACerts": {
+                "pem": "${PEERPEM}"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.istcorg${ORG}.istc.com",
+                "hostnameOverride": "peer0.istcorg${ORG}.istc.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.istcorg${ORG}.istc.com": {
+            "url": "https://localhost:${CAPORT}",
+            "caName": "ca-istcorg${ORG}",
+            "tlsCACerts": {
+                "pem": ["${CAPEM}"]
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+.DS_Store
+.project
+# omit Go vendor directories
+vendor/
+.vscode
+.gradle
+.idea
+
+
+# Dependency directories
+node_modules/
+client-app/wallet
+network/channel-artifacts/
+network/ca-configurations/istc/ordererOrganizations/
+network/ca-configurations/istc/peerOrganizations/
+network/ca-configurations/istc/caConfig/fabric-ca
+network/log.txt
+network/istc-genesis-block
+network/ISTC.tar
