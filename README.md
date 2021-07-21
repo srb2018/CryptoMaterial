@@ -1,6 +1,6 @@
 # ISTC Application
 
-<!-- ## In Hyperledger Fabric let we create the certificate in two ways
+<!-- ## In Hyperledger Fabric we can create the certificate in two ways
 
 - Cryptogen
 - Fabric-CA
