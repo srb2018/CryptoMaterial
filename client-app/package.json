@@ -1,0 +1,28 @@
+{
+  "name": "com.istc",
+  "version": "1.0.0",
+  "description": "ISTC tea node client application",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "ng test"
+  },
+  "keywords": [
+    "ISTC"
+  ],
+  "author": "ISTC",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-bearer-token": "^2.4.0",
+    "express-jwt": "^6.0.0",
+    "fabric-ca-client": "^2.2.5",
+    "fabric-network": "^2.2.5",
+    "http": "*",
+    "jsonwebtoken": "^8.5.1",
+    "log4js": "^6.3.0",
+    "nodemon": "^2.0.7"
+  }
+}
