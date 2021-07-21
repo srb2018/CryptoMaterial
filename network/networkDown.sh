@@ -1,3 +1,5 @@
+#!/bin/bash
+
 COMPOSE_FILE_CA=ca-configurations/istc/caConfig/docker/docker-compose-ca.yaml
 COMPOSE_FILE_BASE=docker/docker-compose.yaml
 COMPOSE_FILE_COUCH=docker/docker-compose-couch.yaml

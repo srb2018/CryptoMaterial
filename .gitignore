@@ -16,4 +16,4 @@ network/ca-configurations/istc/peerOrganizations/
 network/ca-configurations/istc/caConfig/fabric-ca
 network/log.txt
 network/istc-genesis-block
-network/ISTC.tar
+network/ISTC.tar.gz
