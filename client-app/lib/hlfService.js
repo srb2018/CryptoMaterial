@@ -6,9 +6,9 @@ const fs = require('fs');
 const getCCP = async (org) => {
     var ccpPath;
     if (org == "ISTCOrg1") {
-        ccpPath = path.resolve(__dirname, '..', '..', 'network', 'ca-configurations', 'peerOrganizations', 'istcorg1.istc.com', 'connection-istcorg1.json');
+        ccpPath = path.resolve(__dirname, '..', '..', 'network', 'ca-configurations', 'istc', 'peerOrganizations', 'istcorg1.istc.com', 'connection-istcorg1.json');
     } else if (org == "Org2") {
-        ccpPath = path.resolve(__dirname, '..', '..', 'network', 'ca-configurations', 'peerOrganizations', 'istcorg2.istc.com', 'connection-istcorg2.json');
+        ccpPath = path.resolve(__dirname, '..', '..', 'network', 'ca-configurations', 'istc', 'peerOrganizations', 'istcorg2.istc.com', 'connection-istcorg2.json');
     } else { return null };
     const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
     const ccp = JSON.parse(ccpJSON);

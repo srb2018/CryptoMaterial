@@ -74,7 +74,7 @@ const userRegister = async (username, userOrg) => {
             affiliation: await HLFService.getAffiliation(userOrg),
             enrollmentID: username,
             role: 'client',
-            attrs: [{ name: 'role', value: 'approver', ecert: true }]
+            attrs: [{ name: 'role', value: 'user', ecert: true }]
         }, adminUser);
 
     /** Register the user, enroll the user, and import the new identity into the wallet. */
