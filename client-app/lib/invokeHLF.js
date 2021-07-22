@@ -1,14 +1,19 @@
 'use strict';
 
+const express = require("express");
+const router = express.Router();
+const bodyParser = require("body-parser");
 const { Wallets, Gateway, DefaultEventHandlerStrategies } = require('fabric-network');
 const commonUtils = require('./commonUtils');
 const HLFService = require('./hlfService');
 
-const invokeTransaction = async (channelName, chaincodeName, chanincodeFun, args, username, userOrg, transientData) => {
+router.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.json());
+
+const invokeTransaction = async (channelName, chaincodeName, chanincodeFun, args, username, userOrg, transactionType) => {
     try {
         /** Load the network configuration */
         let ccp = await HLFService.getCCP(userOrg);
-
 
         /** Create a new file system based wallet for managing identities. */
         const walletPath = await HLFService.getWalletPath(userOrg)
@@ -38,63 +43,14 @@ const invokeTransaction = async (channelName, chaincodeName, chanincodeFun, args
 
         var result;
         var message;
-        var privatePayload;
-        switch (chanincodeFun) {
-            case "createTeaLot":
+        switch (transactionType) {
+            case "invoke":
                 result = await contract.submitTransaction(chanincodeFun, args);
                 message = `Successfully created tea lot`;
                 break;
-            case "updateTeaLot":
-                result = await contract.submitTransaction(chanincodeFun, args);
+            case "query":
+                result = await contract.evaluateTransaction(chanincodeFun, args);
                 message = `Successfully update tea lot`;
-                break;
-            case "createTeaPacket":
-                result = await contract.submitTransaction(chanincodeFun, args);
-                message = `Successfully created Tea Packet`;
-                break;
-            case "updateTeaPacket":
-                result = await contract.submitTransaction(chanincodeFun, args);
-                message = `Successfully updated Tea Packet`;
-                break;
-            case "initiateTeaTaste":
-                result = await contract.submitTransaction(chanincodeFun, args);
-                message = `Successfully initiated Tea Taste`;
-                break;
-            case "updateTeaTaste":
-                result = await contract.submitTransaction(chanincodeFun, args);
-                message = `Successfully updated Tea Taste`;
-                break;
-            case "initiateLabTest":
-                result = await contract.submitTransaction(chanincodeFun, args);
-                message = `Successfully initiated Lab Test`;
-                break;
-            case "updateLabResult":
-                result = await contract.submitTransaction(chanincodeFun, args);
-                message = `Successfully updated Lab Test`;
-                break;
-            case "getTeaLot":
-                result = await contract.evaluateTransaction(chanincodeFun, args);
-                message = `Successfully query the tea lot`;
-                break;
-            case "getTeaLotHistory":
-                result = await contract.evaluateTransaction(chanincodeFun, args);
-                message = `Successfully query the tea Lot History`;
-                break;
-            case "getTeaPacket":
-                result = await contract.evaluateTransaction(chanincodeFun, args);
-                message = `Successfully query the tea Packet`;
-                break;
-            case "getTeaPacketHistory":
-                result = await contract.evaluateTransaction(chanincodeFun, args);
-                message = `Successfully query the Tea Packet History`;
-                break;
-            case "queryAllTeaLots":
-                result = await contract.evaluateTransaction(chanincodeFun);
-                message = `Successfully query All TeaLots`;
-                break;
-            case "queryAllTeaPackets":
-                result = await contract.evaluateTransaction(chanincodeFun);
-                message = `Successfully query All TeaPackets`;
                 break;
             default:
                 commonUtils.logger.fatal(`function is not avaiable ${chanincodeFun}`)
@@ -113,6 +69,130 @@ const invokeTransaction = async (channelName, chaincodeName, chanincodeFun, args
     }
 }
 
-module.exports = {
-    invokeTransaction: invokeTransaction
-}
+router.post("/createTeaLot", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "createTeaLot", JSON.stringify(req.body), req.username, req.orgname, "invoke");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/updateTeaLot", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "updateTeaLot", JSON.stringify(req.body), req.username, req.orgname, "invoke");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/createTeaPacket", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "createTeaPacket", JSON.stringify(req.body), req.username, req.orgname, "invoke");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/updateTeaPacket", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "updateTeaPacket", JSON.stringify(req.body), req.username, req.orgname, "invoke");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/initiateTeaTaste", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "initiateTeaTaste", JSON.stringify(req.body), req.username, req.orgname, "invoke");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/updateTeaTaste", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "updateTeaTaste", JSON.stringify(req.body), req.username, req.orgname, "invoke");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/initiateLabTest", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "initiateLabTest", JSON.stringify(req.body), req.username, req.orgname, "invoke");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/updateLabResult", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "updateLabResult", JSON.stringify(req.body), req.username, req.orgname, "invoke");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/getTeaLotHistory", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "getTeaLotHistory", JSON.stringify(req.body), req.username, req.orgname, "query");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/getTeaLot", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "getTeaLot", JSON.stringify(req.body), req.username, req.orgname, "query");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/getTeaPacket", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "getTeaPacket", JSON.stringify(req.body), req.username, req.orgname, "query");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/getTeaPacketHistory", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "getTeaPacketHistory", JSON.stringify(req.body), req.username, req.orgname, "query");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/queryAllTeaLots", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "queryAllTeaLots", JSON.stringify(req.body), req.username, req.orgname, "query");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.post("/queryAllTeaPackets", async function (req, res) {
+    try {
+        let result = await invokeTransaction("teachannel", "ISTC", "queryAllTeaPackets", JSON.stringify(req.body), req.username, req.orgname, "query");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+module.exports = router

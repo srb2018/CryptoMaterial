@@ -1,5 +1,5 @@
 {
-  "name": "istc network (ignored)",
+  "name": "ISTC network (ignored)",
   "version": "1.0.0",
   "license": "Apache-2.0",
   "client": {
@@ -14,7 +14,7 @@
       "affiliation": "org1.department1"
     },
     "enableAuthentication": true,
-    "organization": "Org1MSP",
+    "organization": "ISTCOrg1MSP",
     "connection": {
       "timeout": {
         "peer": {
@@ -25,9 +25,9 @@
     }
   },
   "channels": {
-    "mychannel": {
+    "teachannel": {
       "peers": {
-        "peer0.org1.example.com": {}
+        "peer0.istcorg1.istc.com": {}
       },
       "connection": {
         "timeout": {
@@ -41,28 +41,27 @@
     }
   },
   "organizations": {
-    "Org1MSP": {
-      "mspid": "Org1MSP",
+    "ISTCOrg1MSP": {
+      "mspid": "ISTCOrg1MSP",
       "adminPrivateKey": {
-        "path": "/etc/data/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/959babbc34cbcbaa8e3159857bb27def22f9cb13b1cc19c6b19331be84cc114c_sk"
+        "path": "/etc/data/peerOrganizations/istcorg1.istc.com/users/ISTCOrgAdmin@istcorg1.istc.com/msp/keystore/36a4352e75fc890e0c880c23154cc19e0b66921d95f10c2265881ddbfc55e64c_sk"
       },
       "peers": [
-        "peer0.org1.example.com"
+        "peer0.istcorg1.istc.com"
       ],
       "signedCert": {
-        "path": "/etc/data/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/cert.pem"
+        "path": "/etc/data/peerOrganizations/istcorg1.istc.com/users/ISTCOrgAdmin@istcorg1.istc.com/msp/signcerts/cert.pem"
       }
     }
   },
   "peers": {
-    "peer0.org1.example.com": {
+    "peer0.istcorg1.istc.com": {
       "tlsCACerts": {
-        "path": "/etc/data/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"
+        "path": "/etc/data/peerOrganizations/istcorg1.istc.com/peers/peer0.istcorg1.istc.com/tls/ca.crt"
       },
-      "url": "grpcs://peer0.org1.example.com:7051",
-      "eventUrl": "grpcs://peer0.org1.example.com:7053",
+      "url": "grpcs://peer0.istcorg1.istc.com:7051",
       "grpcOptions": {
-        "ssl-target-name-override": "peer0.org1.example.com"
+        "ssl-target-name-override": "peer0.istcorg1.istc.com"
       }
     }
   }

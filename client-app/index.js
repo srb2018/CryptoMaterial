@@ -15,7 +15,7 @@ const port = process.env.PORT || constants.port;
 
 const commonUtils = require('./lib/commonUtils');
 const authService = require('./lib/authentication');
-const invokeHLF = require('./lib/invokeHLF');
+const InvokeHLF = require('./lib/invokeHLF');
 
 app.options('*', cors());
 app.use(cors());
@@ -126,6 +126,9 @@ app.post('/users/login', async (req, res) => {
 
 })
 
+app.use('/istc', InvokeHLF);
+
+
 /** Invoke transaction on chaincode */
 app.post('/channel/:channelName/chaincodes/:chaincodeName', async (req, res) => {
     try {
@@ -136,7 +139,7 @@ app.post('/channel/:channelName/chaincodes/:chaincodeName', async (req, res) => 
         var transient = req.body.transient;
         var args = req.body.args;
 
-        let message = await invokeHLF.invokeTransaction(channelName, chaincodeName, functionName, args, req.username, req.orgname, transient);
+        let message = await InvokeHLF.invokeTransaction(channelName, chaincodeName, functionName, args, req.username, req.orgname, transient);
 
         const response_payload = {
             result: message,

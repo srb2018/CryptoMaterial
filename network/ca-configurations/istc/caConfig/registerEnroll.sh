@@ -12,42 +12,42 @@ function createIstc() {
 
     export FABRIC_CA_CLIENT_HOME=${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/
 
-    fabric-ca-client enroll -u https://admin:adminpw@localhost:7054 --caname ca-istc --tls.certfiles $TLS_LOC_ISTC
+    fabric-ca-client enroll -u https://admin:adminpw@localhost:7054 --caname ca-istcorg1 --tls.certfiles $TLS_LOC_ISTC
 
     infoln "Register and Enroll Each Entity"
     echo 'NodeOUs:
     Enable: true
     ClientOUIdentifier:
-        Certificate: cacerts/localhost-7054-ca-istc.pem
+        Certificate: cacerts/localhost-7054-ca-istcorg1.pem
         OrganizationalUnitIdentifier: client
     PeerOUIdentifier:
-        Certificate: cacerts/localhost-7054-ca-istc.pem
+        Certificate: cacerts/localhost-7054-ca-istcorg1.pem
         OrganizationalUnitIdentifier: peer
     AdminOUIdentifier:
-        Certificate: cacerts/localhost-7054-ca-istc.pem
+        Certificate: cacerts/localhost-7054-ca-istcorg1.pem
         OrganizationalUnitIdentifier: admin
     OrdererOUIdentifier:
-        Certificate: cacerts/localhost-7054-ca-istc.pem
+        Certificate: cacerts/localhost-7054-ca-istcorg1.pem
         OrganizationalUnitIdentifier: orderer' >$CONFIG_YAML_LOC
 
     infoln "<-- Register Entity -->"
-    fabric-ca-client register --caname ca-istc --id.name ISTCOrg --id.secret ISTCOrgpw --id.type peer --tls.certfiles $TLS_LOC_ISTC
+    fabric-ca-client register --caname ca-istcorg1 --id.name ISTCOrg --id.secret ISTCOrgpw --id.type peer --tls.certfiles $TLS_LOC_ISTC
 
     infoln "<-- Registering user -->"
-    fabric-ca-client register --caname ca-istc --id.name ISTCOrguser1 --id.secret ISTCOrguser1pw --id.type client --tls.certfiles $TLS_LOC_ISTC
+    fabric-ca-client register --caname ca-istcorg1 --id.name ISTCOrguser1 --id.secret ISTCOrguser1pw --id.type client --tls.certfiles $TLS_LOC_ISTC
 
     infoln "<-- Registering Admin -->"
-    fabric-ca-client register --caname ca-istc --id.name ISTCOrgadmin --id.secret ISTCOrgadminpw --id.type admin --tls.certfiles $TLS_LOC_ISTC
+    fabric-ca-client register --caname ca-istcorg1 --id.name ISTCOrgadmin --id.secret ISTCOrgadminpw --id.type admin --tls.certfiles $TLS_LOC_ISTC
 
     infoln "<-- Generating the ISTCOrg msp -->"
-    fabric-ca-client enroll -u https://ISTCOrg:ISTCOrgpw@localhost:7054 --caname ca-istc -M $ORG_LOC_ISTC/msp --csr.hosts peer0.istcorg1.istc.com --tls.certfiles $TLS_LOC_ISTC
+    fabric-ca-client enroll -u https://ISTCOrg:ISTCOrgpw@localhost:7054 --caname ca-istcorg1 -M $ORG_LOC_ISTC/msp --csr.hosts peer0.istcorg1.istc.com --tls.certfiles $TLS_LOC_ISTC
 
     # cp [Source] [Destination]
     cp ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/msp/config.yaml ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/peers/peer0.istcorg1.istc.com/msp/config.yaml
     # *--------------------------------* #
 
     infoln "<-- Generating the ISTCOrg TLS certificates -->"
-    fabric-ca-client enroll -u https://ISTCOrg:ISTCOrgpw@localhost:7054 --caname ca-istc -M $TLS_SERVER_LOC --enrollment.profile tls --csr.hosts peer0.istcorg1.istc.com --csr.hosts localhost --tls.certfiles $TLS_LOC_ISTC
+    fabric-ca-client enroll -u https://ISTCOrg:ISTCOrgpw@localhost:7054 --caname ca-istcorg1 -M $TLS_SERVER_LOC --enrollment.profile tls --csr.hosts peer0.istcorg1.istc.com --csr.hosts localhost --tls.certfiles $TLS_LOC_ISTC
 
     cp ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/peers/peer0.istcorg1.istc.com/tls/tlscacerts/* ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/peers/peer0.istcorg1.istc.com/tls/ca.crt
     cp ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/peers/peer0.istcorg1.istc.com/tls/signcerts/* ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/peers/peer0.istcorg1.istc.com/tls/server.crt
@@ -63,11 +63,11 @@ function createIstc() {
     cp -r ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/peers/peer0.istcorg1.istc.com/msp/cacerts/* ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/ca/ca.istcorg1.istc.com-cert.pem
     # *--------------------------------* #
     infoln "<-- Generating the User MSP -->"
-    fabric-ca-client enroll -u https://ISTCOrguser1:ISTCOrguser1pw@localhost:7054 --caname ca-istc -M ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/users/ISTCOrgUser1@istcorg1.istc.com/msp --tls.certfiles $TLS_LOC_ISTC
+    fabric-ca-client enroll -u https://ISTCOrguser1:ISTCOrguser1pw@localhost:7054 --caname ca-istcorg1 -M ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/users/ISTCOrgUser1@istcorg1.istc.com/msp --tls.certfiles $TLS_LOC_ISTC
     cp ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/msp/config.yaml ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/users/ISTCOrgUser1@istcorg1.istc.com/msp/config.yaml
     # *--------------------------------* #
     infoln "<-- Generating the ISTCOrg Admin MSP -->"
-    fabric-ca-client enroll -u https://ISTCOrgadmin:ISTCOrgadminpw@localhost:7054 --caname ca-istc -M ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/users/ISTCOrgAdmin@istcorg1.istc.com/msp --tls.certfiles $TLS_LOC_ISTC
+    fabric-ca-client enroll -u https://ISTCOrgadmin:ISTCOrgadminpw@localhost:7054 --caname ca-istcorg1 -M ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/users/ISTCOrgAdmin@istcorg1.istc.com/msp --tls.certfiles $TLS_LOC_ISTC
     cp ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/msp/config.yaml ${PWD}/ca-configurations/istc/peerOrganizations/istcorg1.istc.com/users/ISTCOrgAdmin@istcorg1.istc.com/msp/config.yaml
 }
 

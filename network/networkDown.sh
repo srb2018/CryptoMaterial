@@ -12,4 +12,5 @@ rm -rf istc-genesis-block
 rm -rf channel-artifacts
 rm -rf ISTC.tar.gz
 rm -rf log.txt
+rm -rf ../client-app/wallet
 

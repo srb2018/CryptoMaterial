@@ -2,19 +2,19 @@ version: '2.1'
 
 volumes:
   pgdata:
-  walletstore:
+  # walletstore:
 
 networks:
-  mynetwork.com:
+  istcorg.com:
     external:
-      name: net_test
+      name: docker_istc_network
 
 services:
 
-  explorerdb.mynetwork.com:
+  explorerdb.istcorg.com:
     image: hyperledger/explorer-db:latest
-    container_name: explorerdb.mynetwork.com
-    hostname: explorerdb.mynetwork.com
+    container_name: explorerdb.istcorg.com
+    hostname: explorerdb.istcorg.com
     environment:
       - DATABASE_DATABASE=fabricexplorer
       - DATABASE_USERNAME=hppoc
@@ -27,14 +27,14 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
-      - mynetwork.com
+      - istcorg.com
 
-  explorer.mynetwork.com:
+  explorer.istcorg.com:
     image: hyperledger/explorer:latest
-    container_name: explorer.mynetwork.com
-    hostname: explorer.mynetwork.com
+    container_name: explorer.istcorg.com
+    hostname: explorer.istcorg.com
     environment:
-      - DATABASE_HOST=explorerdb.mynetwork.com
+      - DATABASE_HOST=explorerdb.istcorg.com
       - DATABASE_DATABASE=fabricexplorer
       - DATABASE_USERNAME=hppoc
       - DATABASE_PASSWD=password
@@ -46,12 +46,12 @@ services:
     volumes:
       - ./config.json:/opt/explorer/app/platform/fabric/config.json
       - ./connection-profile:/opt/explorer/app/platform/fabric/connection-profile
-      - ../test-network/organizations:/etc/data
-      - walletstore:/opt/explorer/wallet
+      - ../network/ca-configurations/istc:/etc/data
+      # - walletstore:/opt/explorer/wallet
     ports:
       - 8080:8080
     depends_on:
-      explorerdb.mynetwork.com:
+      explorerdb.istcorg.com:
         condition: service_healthy
     networks:
-      - mynetwork.com
+      - istcorg.com
