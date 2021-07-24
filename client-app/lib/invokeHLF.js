@@ -45,7 +45,7 @@ const invokeTransaction = async (channelName, chaincodeName, chanincodeFun, args
         var message;
         switch (transactionType) {
             case "invoke":
-                result = await contract.submitTransaction(chanincodeFun, args);
+                result = await contract.submitTransaction(chanincodeFun, "["+args+"]");
                 message = `Successfully created tea lot`;
                 break;
             case "query":
@@ -71,7 +71,7 @@ const invokeTransaction = async (channelName, chaincodeName, chanincodeFun, args
 
 router.post("/createTeaLot", async function (req, res) {
     try {
-        let result = await invokeTransaction("teachannel", "ISTC", "createTeaLot", JSON.stringify(req.body), req.username, req.orgname, "invoke");
+        let result = await invokeTransaction("teachannel", "ISTC", "CreateTeaLot", JSON.stringify(JSON.stringify(req.body)), req.username, req.orgname, "invoke");
         res.send(result);
     } catch (err) {
         res.status(500).send(err);
@@ -79,6 +79,7 @@ router.post("/createTeaLot", async function (req, res) {
 });
 
 router.post("/updateTeaLot", async function (req, res) {
+
     try {
         let result = await invokeTransaction("teachannel", "ISTC", "updateTeaLot", JSON.stringify(req.body), req.username, req.orgname, "invoke");
         res.send(result);

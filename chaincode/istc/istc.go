@@ -72,8 +72,8 @@ func (s *SpecialtyTeaContract) Invoke(ctx contractapi.TransactionContextInterfac
 	// Route to the appropriate handler function to interact with the ledger appropriately
 	if function == "initLedger" {
 		return s.InitLedger(ctx)
-	} else if function == "createTeaLot" {
-		return s.createTeaLot(ctx, args)
+	} else if function == "CreateTeaLot" {
+		return s.CreateTeaLot(ctx, args)
 	} else if function == "createTeaPacket" {
 		return s.createTeaPacket(ctx, args)
 	} else if function == "updateTeaLot" {
@@ -144,8 +144,12 @@ func (s *SpecialtyTeaContract) InitLedger(ctx contractapi.TransactionContextInte
 	return "", nil
 }
 
-// This function is initiate by producer
-func (s *SpecialtyTeaContract) createTeaLot(ctx contractapi.TransactionContextInterface, args []string) (string, error) {
+// This function is initiate by CreateTeaLot
+func (s *SpecialtyTeaContract) CreateTeaLot(ctx contractapi.TransactionContextInterface, args []string) (string, error) {
+
+	// if len(args) != 1 {
+	// 	return "", fmt.Errorf("Incorrect number of arguments. creating TeaLot function must needed arguments")
+	// }
 
 	teaLot := TeaLot{}
 
@@ -153,7 +157,19 @@ func (s *SpecialtyTeaContract) createTeaLot(ctx contractapi.TransactionContextIn
 	if err != nil {
 		return "", fmt.Errorf("Not able to parse args into tea lot")
 	}
+	// pm := &map[string]string{"teaLot": teaLot.TeaLotID}
+
+	// args := map[string]string { "1":"a", "2":"b" }
+	// args := []string{"theatreName\":\"IMax Studios\",\"windows\":4,\"ticketsPerShow\":100,\"showsDaily\":4,\"sodaStock\":200,\"halls\":5"}
+
+	// teaLots := TeaArg{
+	// 	{TeaLotID: teaLot.TeaLotID},
+	// }
+
+	// exists, err := s.getTeaLot(ctx, teaLots)
+
 	teaLotAsBytes, err := json.Marshal(teaLot)
+
 	ctx.GetStub().PutState(teaLot.TeaLotID, teaLotAsBytes)
 	fmt.Println("created Tea -> ", teaLot)
 

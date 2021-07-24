@@ -44,7 +44,7 @@
     "ISTCOrg1MSP": {
       "mspid": "ISTCOrg1MSP",
       "adminPrivateKey": {
-        "path": "/etc/data/peerOrganizations/istcorg1.istc.com/users/ISTCOrgAdmin@istcorg1.istc.com/msp/keystore/36a4352e75fc890e0c880c23154cc19e0b66921d95f10c2265881ddbfc55e64c_sk"
+        "path": "/etc/data/peerOrganizations/istcorg1.istc.com/users/ISTCOrgAdmin@istcorg1.istc.com/msp/keystore/aa83039dd7914fb42b63fa86cc3517acf62e403cc343e05e83b50c76222269f7_sk"
       },
       "peers": [
         "peer0.istcorg1.istc.com"
